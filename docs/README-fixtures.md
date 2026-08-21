@@ -4,6 +4,13 @@ New to this repo? Read this whole page once. It explains what the data is, the
 handful of rules that make it valid, and exactly how to check it and load it.
 For a click-by-click Supabase walkthrough, see **`TESTING-in-supabase.md`**.
 
+> **Two fixtures live here.** `budget-fixture.demo.json` is the **demo** set —
+> a clean September baseline, 7 categories, no seeded negotiations (savings is a
+> single number, not a category). `budget-fixture.sample.json` is the **testing**
+> set — 8 categories with a seeded proposal, used to exercise the write path.
+> Sections below that mention savings-as-a-category or the goal-math check
+> describe the **testing** fixture; the demo fixture omits both by design.
+
 ---
 
 ## 1. What this is (the 60-second version)

@@ -1,0 +1,1449 @@
+{
+  "contract_version": "1.0.0",
+  "demo_clock": {
+    "today": "2026-09-01",
+    "current_month": "2026-09"
+  },
+  "household": {
+    "id": "83f5b53b-ff04-4c97-983b-fac5bcda2db2",
+    "name": "Rivera Household",
+    "currency_code": "USD",
+    "ai_context_text": "Two-parent US household with one teenager, discretionary spending only (fixed costs are handled outside this budget). The grid tracks each person's monthly allowance per category as whole amounts; a negotiation redistributes allowance between people and always nets to zero, leaving the category and household totals unchanged. Available savings and progress toward a $5,000 goal (target February 1, 2027) are entered by a member at setup and shown as a single number, separate from this grid. September starts at baseline allowances with no negotiations yet, so the propose-and-agree flow can be demonstrated from a clean slate."
+  },
+  "members": [
+    {
+      "id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "role": "parent_1",
+      "display_name": "Parent 1",
+      "short_name": "P1",
+      "can_propose": true
+    },
+    {
+      "id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "role": "parent_2",
+      "display_name": "Parent 2",
+      "short_name": "P2",
+      "can_propose": true
+    },
+    {
+      "id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "role": "teen_1",
+      "display_name": "Teen 1",
+      "short_name": "Teen",
+      "can_propose": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "name": "Groceries",
+      "sort_order": 1,
+      "is_hard_floor": true
+    },
+    {
+      "id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "name": "Dining out & takeout",
+      "sort_order": 2,
+      "is_hard_floor": false
+    },
+    {
+      "id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "name": "Liquor store",
+      "sort_order": 3,
+      "is_hard_floor": false
+    },
+    {
+      "id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "name": "Bars & nightlife",
+      "sort_order": 4,
+      "is_hard_floor": false
+    },
+    {
+      "id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "name": "Entertainment & subscriptions",
+      "sort_order": 5,
+      "is_hard_floor": false
+    },
+    {
+      "id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "name": "Shopping & apparel",
+      "sort_order": 6,
+      "is_hard_floor": false
+    },
+    {
+      "id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "name": "Travel & outings",
+      "sort_order": 7,
+      "is_hard_floor": false
+    }
+  ],
+  "goal": {
+    "id": "da9de6da-95ca-4ad3-a662-9d363d885752",
+    "name": "Family savings cushion",
+    "target_amount_minor": 500000,
+    "target_date": "2027-02-01",
+    "saved_amount_minor": 0,
+    "plan_months": [
+      "2026-09",
+      "2026-10",
+      "2026-11",
+      "2026-12",
+      "2027-01"
+    ]
+  },
+  "spend_summaries": [
+    {
+      "id": "53aa0df8-268b-41f3-8f75-a38d81108fc5",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "actual_amount_minor": 78000
+    },
+    {
+      "id": "63abf301-2706-469d-b48c-f80b97d72bd9",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "actual_amount_minor": 74000
+    },
+    {
+      "id": "9f638391-b5e4-410c-ac1b-9155bf7f2471",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "actual_amount_minor": 82000
+    },
+    {
+      "id": "1f1e41f1-293d-4f7d-ae8b-919ca2fd567d",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "actual_amount_minor": 80000
+    },
+    {
+      "id": "41d387b7-52c6-4e05-bd54-9ecb465afd75",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "actual_amount_minor": 72000
+    },
+    {
+      "id": "69b6c2e7-ab02-49c5-b72f-66bf7d02e4af",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 28800
+    },
+    {
+      "id": "dc58b4f0-42db-45e1-908f-40bc050d4b99",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 28800
+    },
+    {
+      "id": "e49c6087-ab2e-4640-9dda-6b140ed66451",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 14400
+    },
+    {
+      "id": "aab4f9d1-824b-4998-9525-44c3b6f782ce",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 27200
+    },
+    {
+      "id": "64347f9c-1a26-4ee0-bf9b-5a48c19ba2ea",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 27200
+    },
+    {
+      "id": "f10dfc5b-6a9c-40b1-95c7-d59727f5c57d",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 13600
+    },
+    {
+      "id": "324d7d99-6610-4dd9-b578-7600bb30f6ae",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 28000
+    },
+    {
+      "id": "e7686b1e-985d-4bf7-ac04-22d3b0d3efa3",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 28000
+    },
+    {
+      "id": "3c23c0bd-662a-4a8b-a912-87c24cf5b6c8",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 14000
+    },
+    {
+      "id": "11dedf27-c5a7-4801-a512-ea747a13418b",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 32800
+    },
+    {
+      "id": "10f11820-fee8-4a9f-abfa-a604f219c5a2",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 32800
+    },
+    {
+      "id": "51f34b0c-a57f-4cde-af77-6fe44ac87e80",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 16400
+    },
+    {
+      "id": "64be674c-b478-45b7-ab4b-bf7e1396e741",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 24000
+    },
+    {
+      "id": "e88a1682-9fc0-4e90-87b2-bbd4f97b435d",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 24000
+    },
+    {
+      "id": "baec877c-6270-428e-9db9-e0ee7c2788b9",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "actual_amount_minor": 12000
+    },
+    {
+      "id": "063c73b5-dcec-4d10-ae9e-1719cf937f70",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 3600
+    },
+    {
+      "id": "2a9daa2c-b19f-42ff-8000-858258e678da",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 8400
+    },
+    {
+      "id": "b4219924-63f5-40bc-ac3e-697e84ab6ef0",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 3600
+    },
+    {
+      "id": "77ddec3f-b41b-40f4-9fbd-258efb2da024",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 8400
+    },
+    {
+      "id": "cd944d5f-dbfd-4166-8686-0d7240cbd1b4",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 4500
+    },
+    {
+      "id": "4093e609-574e-412f-8116-0246068dae35",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 10500
+    },
+    {
+      "id": "26b7b689-0687-4207-b189-bf9b41bba014",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 6000
+    },
+    {
+      "id": "1673b0e9-4a84-4838-95cf-8cb68165a4e5",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 14000
+    },
+    {
+      "id": "91ed5962-51db-4977-baf0-c3092640b73e",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 3301
+    },
+    {
+      "id": "30f4219c-8f2d-481a-9913-eae6bdefce3d",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "actual_amount_minor": 7699
+    },
+    {
+      "id": "5142b1c8-34ad-4cb5-a416-80a5da42acef",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "actual_amount_minor": 30000
+    },
+    {
+      "id": "c1773655-1975-4992-a017-2177d99bd519",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "actual_amount_minor": 30000
+    },
+    {
+      "id": "44ad13ff-1ec9-48d3-80ef-23f579856b38",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "actual_amount_minor": 32000
+    },
+    {
+      "id": "28a7519b-9c64-4b15-8b3a-bc95bfadba75",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "actual_amount_minor": 42000
+    },
+    {
+      "id": "23724bbb-6621-4097-a0c1-206490ca85f6",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "actual_amount_minor": 24000
+    },
+    {
+      "id": "1a9746cf-f4fd-4c61-81f0-76ddd5500aab",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8400
+    },
+    {
+      "id": "998e1cb4-f146-42c2-8b2e-71d9bfdeb383",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8400
+    },
+    {
+      "id": "b0e7ae0f-e634-4b4d-9063-2b9b7a028120",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 11200
+    },
+    {
+      "id": "8dfcde80-894f-4c94-b323-168f395e202a",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8400
+    },
+    {
+      "id": "173ae27b-99f0-4949-8cff-184cd753aeac",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8400
+    },
+    {
+      "id": "bedb291e-694c-484e-8d1a-9031d1de1d7b",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 11200
+    },
+    {
+      "id": "b048141b-9f36-4716-b0c7-ca0ba5e65da1",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8700
+    },
+    {
+      "id": "7bfa97d8-bff3-41fe-8609-72d74dcf54d4",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8700
+    },
+    {
+      "id": "22cc795a-0659-4beb-9aec-da77cb21a549",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 11600
+    },
+    {
+      "id": "631be68f-9d1f-46d4-9882-37d779a84bb8",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 10200
+    },
+    {
+      "id": "c360aba0-ed46-4cc0-9977-9e90517f34fa",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 10200
+    },
+    {
+      "id": "e41941a2-b8a3-4223-800b-5b7141da9570",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 13600
+    },
+    {
+      "id": "2c7bb377-0af8-4398-841f-503b92847df6",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8100
+    },
+    {
+      "id": "6f5c953b-13c7-4777-ace3-890d8e4deee9",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 8100
+    },
+    {
+      "id": "3bb98b70-ff8a-4891-9754-7b1d7b6bbe93",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "actual_amount_minor": 10800
+    },
+    {
+      "id": "6e92fe99-f689-4ffa-a846-1da1b32b55ce",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 19600
+    },
+    {
+      "id": "a16ee598-9380-417a-80a4-82ec1317dc8f",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 19600
+    },
+    {
+      "id": "95c21894-c460-48be-826b-fba31005a427",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 16800
+    },
+    {
+      "id": "5fbf4ede-f869-47f7-b76c-cdf827bc1492",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 12600
+    },
+    {
+      "id": "ebade657-419d-4e7b-a9fb-9726642c66e5",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 12600
+    },
+    {
+      "id": "f092aa26-3520-4832-8495-f693fcefbe50",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 10800
+    },
+    {
+      "id": "1af96b40-4c8f-4d61-a12c-3d26ceb66b56",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 14701
+    },
+    {
+      "id": "1cc83af0-5b66-4798-a3d6-c74624999dd4",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 14699
+    },
+    {
+      "id": "9bfc8153-ccd9-4c4d-98cd-9b3e8fafc6f7",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 12600
+    },
+    {
+      "id": "9c9c35ca-efe2-4af5-ad45-81670eb18a36",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 29401
+    },
+    {
+      "id": "24b687bd-2fe5-4fed-a10f-cbd3213b04da",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 29399
+    },
+    {
+      "id": "162091f4-7bc8-4d75-81fa-0697c5da6675",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 25200
+    },
+    {
+      "id": "a8c73a69-0a1d-4ae5-a49a-cfc08f6b6fb8",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 11200
+    },
+    {
+      "id": "0f16f4a7-fd49-4a82-9aa5-f98efcdb02af",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 11200
+    },
+    {
+      "id": "abf53328-9559-4a45-b283-a8354bc8190b",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "actual_amount_minor": 9600
+    },
+    {
+      "id": "18a60278-1177-43ed-83fa-d29e813acb12",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 20000
+    },
+    {
+      "id": "1db41395-45da-40ae-b36e-cf4e1439a0c3",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 20000
+    },
+    {
+      "id": "49f8e9f6-0cfb-468d-a371-ef4241cb7841",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 21000
+    },
+    {
+      "id": "1c30633a-ee20-465c-b114-96df80005ec0",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 21000
+    },
+    {
+      "id": "c033bcbd-985d-4980-a8d6-671f0aefb599",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 24000
+    },
+    {
+      "id": "e34a7f36-c985-4dd6-a394-6c1e2a5b8404",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-11-01",
+      "period_end": "2025-11-30",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 24000
+    },
+    {
+      "id": "dd0d086b-e6d6-44a0-afb5-2ff929fe051c",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 32000
+    },
+    {
+      "id": "572ae403-4496-499f-8e6b-efe48b1c198f",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2025-12-01",
+      "period_end": "2025-12-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 32000
+    },
+    {
+      "id": "09f9ebf2-2d19-43f4-9f64-033c98081c97",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 16000
+    },
+    {
+      "id": "d94504b8-4c59-4eb8-9732-aaf313a0ac97",
+      "source": "historical_reference",
+      "granularity": "month",
+      "period_start": "2026-01-01",
+      "period_end": "2026-01-31",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "actual_amount_minor": 16000
+    }
+  ],
+  "budget_items": [
+    {
+      "id": "0b23c9e5-c295-4480-a767-1491534b8b07",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "month": "2026-09",
+      "planned_amount_minor": 90000,
+      "floor_amount_minor": 76500
+    },
+    {
+      "id": "42977791-6a76-45f0-a30f-94a01a9f9768",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "month": "2026-10",
+      "planned_amount_minor": 85000,
+      "floor_amount_minor": 72250
+    },
+    {
+      "id": "e837c463-2721-4477-b5fe-30fe3889ff07",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "month": "2026-11",
+      "planned_amount_minor": 95000,
+      "floor_amount_minor": 80750
+    },
+    {
+      "id": "90e49bb6-b0cb-483f-a54a-9cc8b775ea95",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "month": "2026-12",
+      "planned_amount_minor": 92000,
+      "floor_amount_minor": 78200
+    },
+    {
+      "id": "c21d5d91-bf63-4f09-ace9-e214720fb06e",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "777696bf-0888-4953-b831-ebd117d9df5d",
+      "month": "2027-01",
+      "planned_amount_minor": 83000,
+      "floor_amount_minor": 70550
+    },
+    {
+      "id": "35bd7b5c-8e42-4950-983a-1959ddf893aa",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-09",
+      "planned_amount_minor": 22400,
+      "floor_amount_minor": 8960
+    },
+    {
+      "id": "488245db-8433-4a96-9a01-1948ff413b95",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-09",
+      "planned_amount_minor": 22400,
+      "floor_amount_minor": 8960
+    },
+    {
+      "id": "3442a5cf-9eda-4017-9969-b60b2e90e0f6",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-09",
+      "planned_amount_minor": 11200,
+      "floor_amount_minor": 4480
+    },
+    {
+      "id": "a95d1bf5-d1b3-4293-91fb-423ec0915dc4",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-10",
+      "planned_amount_minor": 20800,
+      "floor_amount_minor": 8320
+    },
+    {
+      "id": "5a501336-5b49-4214-917c-a658f5404179",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-10",
+      "planned_amount_minor": 20800,
+      "floor_amount_minor": 8320
+    },
+    {
+      "id": "133f4501-fb2c-4767-a8ca-b3966f4a7de3",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-10",
+      "planned_amount_minor": 10400,
+      "floor_amount_minor": 4160
+    },
+    {
+      "id": "2a0baa03-152a-4b4f-af1e-1a41f900c4c7",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-11",
+      "planned_amount_minor": 21600,
+      "floor_amount_minor": 8640
+    },
+    {
+      "id": "61b719d9-94d7-405c-b641-68bcce2e5026",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-11",
+      "planned_amount_minor": 21600,
+      "floor_amount_minor": 8640
+    },
+    {
+      "id": "d3792788-caad-4285-b7d1-2ee96fbb2a33",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-11",
+      "planned_amount_minor": 10800,
+      "floor_amount_minor": 4320
+    },
+    {
+      "id": "19ab1e96-695d-4b7c-ba13-6e948084322e",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-12",
+      "planned_amount_minor": 24800,
+      "floor_amount_minor": 9920
+    },
+    {
+      "id": "0888851e-faac-474d-88cf-6b5c982abec2",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-12",
+      "planned_amount_minor": 24800,
+      "floor_amount_minor": 9920
+    },
+    {
+      "id": "52be23d5-4251-4cdd-8afe-843ba8f3612f",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2026-12",
+      "planned_amount_minor": 12400,
+      "floor_amount_minor": 4960
+    },
+    {
+      "id": "01b7a463-bce9-4566-b86a-5ef407949bae",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2027-01",
+      "planned_amount_minor": 17600,
+      "floor_amount_minor": 7040
+    },
+    {
+      "id": "e11a99c5-caa5-4271-adba-5757cc3ce89c",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2027-01",
+      "planned_amount_minor": 17600,
+      "floor_amount_minor": 7040
+    },
+    {
+      "id": "518eabca-b433-46b9-9b9b-cb07563c4825",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "68abcdaa-8236-4b0b-9bdf-e94eace22997",
+      "month": "2027-01",
+      "planned_amount_minor": 8800,
+      "floor_amount_minor": 3520
+    },
+    {
+      "id": "22ad7fa3-304a-44e6-9cfc-71baf0ff0d8b",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-09",
+      "planned_amount_minor": 4800,
+      "floor_amount_minor": 1920
+    },
+    {
+      "id": "1fdda8a9-4efa-414a-82c5-148aa0c64379",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-09",
+      "planned_amount_minor": 11200,
+      "floor_amount_minor": 4480
+    },
+    {
+      "id": "3da7c5bb-dae1-4308-bb9c-328d7967810a",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-10",
+      "planned_amount_minor": 5100,
+      "floor_amount_minor": 2040
+    },
+    {
+      "id": "d5c52bd6-d939-46a8-88b7-71fd8a132359",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-10",
+      "planned_amount_minor": 11900,
+      "floor_amount_minor": 4760
+    },
+    {
+      "id": "d681a0f1-7896-4c1e-8a12-afd1db53dd74",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-11",
+      "planned_amount_minor": 6000,
+      "floor_amount_minor": 2400
+    },
+    {
+      "id": "43ccfc3b-4c38-488d-9b6c-1148057e612d",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-11",
+      "planned_amount_minor": 14000,
+      "floor_amount_minor": 5600
+    },
+    {
+      "id": "5b057013-8bda-49f2-9183-5778bbc0350b",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-12",
+      "planned_amount_minor": 7800,
+      "floor_amount_minor": 3120
+    },
+    {
+      "id": "99ae2db3-fde6-47e8-8a91-c1df763bea73",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2026-12",
+      "planned_amount_minor": 18200,
+      "floor_amount_minor": 7280
+    },
+    {
+      "id": "0fb3b8ec-37ad-4a1f-b35f-5a63ab7cded6",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2027-01",
+      "planned_amount_minor": 4200,
+      "floor_amount_minor": 1680
+    },
+    {
+      "id": "8f316f39-3203-4d89-8db7-4351ca495365",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "302ff348-f54c-42a4-aaa1-45e09f1fe2fb",
+      "month": "2027-01",
+      "planned_amount_minor": 9800,
+      "floor_amount_minor": 3920
+    },
+    {
+      "id": "6d65ba02-a0c0-4004-9e1f-70a12750604a",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "month": "2026-09",
+      "planned_amount_minor": 18000,
+      "floor_amount_minor": 7200
+    },
+    {
+      "id": "96fcc463-fb59-46a0-a9a7-82589f8c314b",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "month": "2026-10",
+      "planned_amount_minor": 18000,
+      "floor_amount_minor": 7200
+    },
+    {
+      "id": "a6daebff-5eac-4142-b703-7da3e765c27c",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "month": "2026-11",
+      "planned_amount_minor": 19000,
+      "floor_amount_minor": 7600
+    },
+    {
+      "id": "1b731779-840c-4842-a414-00e87782ad57",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "month": "2026-12",
+      "planned_amount_minor": 26000,
+      "floor_amount_minor": 10400
+    },
+    {
+      "id": "90c2321d-1154-4c5b-825e-d0fd5f9a1eff",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "d53b6769-48af-4bfd-8d3a-8b69bbd5d7f9",
+      "month": "2027-01",
+      "planned_amount_minor": 12000,
+      "floor_amount_minor": 4800
+    },
+    {
+      "id": "692707cf-fa8d-49ab-ad3e-b05d4293424d",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-09",
+      "planned_amount_minor": 7200,
+      "floor_amount_minor": 3600
+    },
+    {
+      "id": "fec862e7-d829-45f9-9ab0-75ded9fbfff7",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-09",
+      "planned_amount_minor": 7200,
+      "floor_amount_minor": 3600
+    },
+    {
+      "id": "e63b8b51-3b98-405f-9f46-919a846eb628",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-09",
+      "planned_amount_minor": 9600,
+      "floor_amount_minor": 4800
+    },
+    {
+      "id": "35837630-58ca-4cdf-b29a-00a72b4e4266",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-10",
+      "planned_amount_minor": 7200,
+      "floor_amount_minor": 3600
+    },
+    {
+      "id": "9821c5e2-5f26-42cd-a882-0662789d25d8",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-10",
+      "planned_amount_minor": 7200,
+      "floor_amount_minor": 3600
+    },
+    {
+      "id": "2181ff21-0ed8-4fcb-9c73-7fc96933136f",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-10",
+      "planned_amount_minor": 9600,
+      "floor_amount_minor": 4800
+    },
+    {
+      "id": "476c5bb5-21a6-45f1-9305-f93ed15a94f0",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-11",
+      "planned_amount_minor": 7500,
+      "floor_amount_minor": 3750
+    },
+    {
+      "id": "8dcc6c8d-d704-4c81-af48-6ce476a9490f",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-11",
+      "planned_amount_minor": 7500,
+      "floor_amount_minor": 3750
+    },
+    {
+      "id": "69ec95f2-c499-4ff2-be05-f9c52aa7ae21",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-11",
+      "planned_amount_minor": 10000,
+      "floor_amount_minor": 5000
+    },
+    {
+      "id": "eb0e3315-2fdd-4655-80a1-c0172ec0d81c",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-12",
+      "planned_amount_minor": 9000,
+      "floor_amount_minor": 4500
+    },
+    {
+      "id": "1b60099b-a64c-4083-8eb6-4c90c5037aa0",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-12",
+      "planned_amount_minor": 9000,
+      "floor_amount_minor": 4500
+    },
+    {
+      "id": "c3db24bc-08b1-44bc-8f5e-82f9ea879f4a",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2026-12",
+      "planned_amount_minor": 12000,
+      "floor_amount_minor": 6000
+    },
+    {
+      "id": "0fd15d92-1efd-4e93-91e3-ae42c3d1330a",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2027-01",
+      "planned_amount_minor": 6900,
+      "floor_amount_minor": 3450
+    },
+    {
+      "id": "a7f62b2f-4052-4be7-8ae4-e61b8983a9a1",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2027-01",
+      "planned_amount_minor": 6900,
+      "floor_amount_minor": 3450
+    },
+    {
+      "id": "9ca0d40c-2b84-4191-8515-ee3c78b995fc",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "506a5d51-7b06-45e4-8115-fb9980b2db25",
+      "month": "2027-01",
+      "planned_amount_minor": 9200,
+      "floor_amount_minor": 4600
+    },
+    {
+      "id": "5d162d76-2358-4874-927c-18b8c63547ac",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-09",
+      "planned_amount_minor": 16800,
+      "floor_amount_minor": 5040
+    },
+    {
+      "id": "db159a97-868d-430c-8597-326890c612a1",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-09",
+      "planned_amount_minor": 16800,
+      "floor_amount_minor": 5040
+    },
+    {
+      "id": "dd143e01-6de2-4721-92c4-1eb304853368",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-09",
+      "planned_amount_minor": 14400,
+      "floor_amount_minor": 4320
+    },
+    {
+      "id": "19f6bff6-76d3-4f5c-8c73-c4dbbdfd2a10",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-10",
+      "planned_amount_minor": 10500,
+      "floor_amount_minor": 3150
+    },
+    {
+      "id": "51396059-4d38-4755-a415-1698fd0afae1",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-10",
+      "planned_amount_minor": 10500,
+      "floor_amount_minor": 3150
+    },
+    {
+      "id": "4bc708cd-e082-4e16-9e10-ed60cc2f104f",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-10",
+      "planned_amount_minor": 9000,
+      "floor_amount_minor": 2700
+    },
+    {
+      "id": "4ad13c7a-a1d0-4d30-ae3f-640ddf9c0d8e",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-11",
+      "planned_amount_minor": 11900,
+      "floor_amount_minor": 3570
+    },
+    {
+      "id": "ccc6c20c-1595-4ec9-9a41-6d2b9758e4ee",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-11",
+      "planned_amount_minor": 11900,
+      "floor_amount_minor": 3570
+    },
+    {
+      "id": "4dbc4504-bb9e-438d-a934-2f21754a53f9",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-11",
+      "planned_amount_minor": 10200,
+      "floor_amount_minor": 3060
+    },
+    {
+      "id": "71c5b395-6786-4d9d-bce1-f5ac7858425a",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-12",
+      "planned_amount_minor": 25200,
+      "floor_amount_minor": 7560
+    },
+    {
+      "id": "9cddbb44-3a7f-49f4-8af9-308ca736b074",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-12",
+      "planned_amount_minor": 25200,
+      "floor_amount_minor": 7560
+    },
+    {
+      "id": "55ec581e-dcf8-4911-9144-21d9bd24ddb2",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2026-12",
+      "planned_amount_minor": 21600,
+      "floor_amount_minor": 6480
+    },
+    {
+      "id": "da7431dd-070a-4913-9a72-0d16f8edebc6",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2027-01",
+      "planned_amount_minor": 9100,
+      "floor_amount_minor": 2730
+    },
+    {
+      "id": "a989ff26-29e6-455b-9963-2215fb97080f",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2027-01",
+      "planned_amount_minor": 9100,
+      "floor_amount_minor": 2730
+    },
+    {
+      "id": "2ae4272b-688b-4f5b-9bd4-e39ffb9d7fd4",
+      "member_id": "6b1a1c9a-946b-4919-8cd8-43bcf8deb9d2",
+      "category_id": "27a8ce2f-38c5-4b91-8690-83e17901dd85",
+      "month": "2027-01",
+      "planned_amount_minor": 7800,
+      "floor_amount_minor": 2340
+    },
+    {
+      "id": "3b92e027-1a5f-4eba-894a-b5e2d06fdb25",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-09",
+      "planned_amount_minor": 16000,
+      "floor_amount_minor": 6400
+    },
+    {
+      "id": "5271208b-d7f3-4510-80ff-52be67df5ff5",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-09",
+      "planned_amount_minor": 16000,
+      "floor_amount_minor": 6400
+    },
+    {
+      "id": "27c44e58-cf0b-44bf-9a03-eebf96715e15",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-10",
+      "planned_amount_minor": 18000,
+      "floor_amount_minor": 7200
+    },
+    {
+      "id": "2c5cd8ca-b645-4b54-9f6d-d7d7c7fec89a",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-10",
+      "planned_amount_minor": 18000,
+      "floor_amount_minor": 7200
+    },
+    {
+      "id": "309ae2d1-cd84-40dd-84f7-8467e9d677a9",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-11",
+      "planned_amount_minor": 21000,
+      "floor_amount_minor": 8400
+    },
+    {
+      "id": "92e74b36-7614-4198-a57a-4a8f84cf8166",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-11",
+      "planned_amount_minor": 21000,
+      "floor_amount_minor": 8400
+    },
+    {
+      "id": "882c32a4-a041-4cac-8833-57ee72226fef",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-12",
+      "planned_amount_minor": 28000,
+      "floor_amount_minor": 11200
+    },
+    {
+      "id": "11f19298-cf02-4027-97d8-9876e4a8c1c8",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2026-12",
+      "planned_amount_minor": 28000,
+      "floor_amount_minor": 11200
+    },
+    {
+      "id": "3df8127a-1c7f-4d4b-957c-1c60dc551124",
+      "member_id": "1eac12a9-723b-4258-b5e4-6c4395062c27",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2027-01",
+      "planned_amount_minor": 13000,
+      "floor_amount_minor": 5200
+    },
+    {
+      "id": "38c988ee-69e5-4dc7-8699-f8b825ab9062",
+      "member_id": "3b33efd4-ed26-45da-b951-0fc84180ea68",
+      "category_id": "41216117-07db-44e0-bc39-9aad3f01ba4b",
+      "month": "2027-01",
+      "planned_amount_minor": 13000,
+      "floor_amount_minor": 5200
+    }
+  ],
+  "proposals": []
+}

@@ -19,7 +19,10 @@ Run:  python3 generate_seed.py > seed.sql
 """
 import json, sys
 
-d = json.load(open("budget-fixture.sample.json", encoding="utf-8"))
+# Input fixture defaults to the testing set; pass a filename to build another
+# (e.g. python3 generate_seed.py budget-fixture.demo.json > seed.demo.sql).
+_src = sys.argv[1] if len(sys.argv) > 1 else "budget-fixture.sample.json"
+d = json.load(open(_src, encoding="utf-8"))
 
 def q(s):            # quote + escape a SQL string literal
     return "'" + str(s).replace("'", "''") + "'"
