@@ -1,48 +1,451 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://outskill-c13-group-2.local/contracts/budget-fixture/1.0.0",
-  "title": "Budget negotiator demo fixture",
+  "$id": "https://outskill-c13-group-2.example/schemas/budget-fixture/1.0.0",
+  "title": "Budget Negotiator MVP Fixture",
+  "description": "Canonical fixture contract for the hackathon. It contains seeded reference spending summaries, the active member-level budget, and the shared rebalance state. It intentionally excludes individual transactions, bank accounts, and structured income or savings records.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contract_version", "household", "members", "categories", "goal", "budget_items"],
+  "required": [
+    "contract_version",
+    "demo_clock",
+    "household",
+    "members",
+    "categories",
+    "goal",
+    "spend_summaries",
+    "budget_items",
+    "proposals"
+  ],
   "properties": {
-    "contract_version": { "const": "1.0.0" },
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "demo_clock": {
+      "$ref": "#/$defs/demoClock"
+    },
     "household": {
-      "type": "object", "additionalProperties": false,
-      "required": ["id", "name", "currency_code"],
-      "properties": {
-        "id": { "$ref": "#/$defs/uuid" }, "name": { "type": "string", "minLength": 1 },
-        "currency_code": { "type": "string", "pattern": "^[A-Z]{3}$" }, "ai_context_text": { "type": "string" }
+      "$ref": "#/$defs/household"
+    },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/member"
       }
     },
-    "members": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/member" } },
-    "categories": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/category" } },
-    "goal": { "$ref": "#/$defs/goal" },
-    "budget_items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/budgetItem" } },
-    "proposals": { "type": "array", "items": { "$ref": "#/$defs/proposal" } }
-  },
-  "$defs": {
-    "uuid": { "type": "string", "format": "uuid" },
-    "minorAmount": { "type": "integer" },
-    "member": {
-      "type": "object", "additionalProperties": false, "required": ["id", "display_name", "role"],
-      "properties": { "id": { "$ref": "#/$defs/uuid" }, "display_name": { "type": "string" }, "role": { "enum": ["adult", "teen"] } }
-    },
-    "category": {
-      "type": "object", "additionalProperties": false, "required": ["id", "name", "floor_amount_minor"],
-      "properties": { "id": { "$ref": "#/$defs/uuid" }, "name": { "type": "string" }, "floor_amount_minor": { "$ref": "#/$defs/minorAmount" } }
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/category"
+      }
     },
     "goal": {
-      "type": "object", "additionalProperties": false, "required": ["id", "title", "target_amount_minor", "deadline_date"],
-      "properties": { "id": { "$ref": "#/$defs/uuid" }, "title": { "type": "string" }, "target_amount_minor": { "type": "integer", "minimum": 1 }, "deadline_date": { "type": "string", "format": "date" } }
+      "$ref": "#/$defs/goal"
+    },
+    "spend_summaries": {
+      "description": "Monthly category totals used as the historical reference for the plan. MVP fixture records use `historical_reference` and `month`; the `week` option exists only to keep a future weekly-summary import compatible with this contract.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/spendSummary"
+      }
+    },
+    "budget_items": {
+      "description": "The active member x category x month budget. Family totals are calculated from these records and are never stored here.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/budgetItem"
+      }
+    },
+    "proposals": {
+      "description": "The persistent negotiation log. An agreed proposal changes the affected active budget items; no formal plan-version entity is needed for the hackathon.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proposal"
+      }
+    }
+  },
+  "$comment": "Cross-record rules are enforced by application/Supabase code, not JSON Schema alone: IDs must resolve within this fixture; each member/category/month budget item is unique; category and member IDs referenced by summaries, budgets, and proposals must exist; each agreed proposal's changes must net to zero; applying each change must not take a budget item below its floor; all amounts within a fixture use household.currency_code.",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID identifier, unique within this fixture."
+    },
+    "month": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+    },
+    "minorAmount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "A non-negative monetary amount in the currency's minor unit. Never use a float."
+    },
+    "signedMinorAmount": {
+      "type": "integer",
+      "description": "A signed monetary delta in the household currency's minor unit. Never use a float."
+    },
+    "currencyCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 alphabetic currency code, for example CAD or USD."
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "demoClock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "today",
+        "current_month"
+      ],
+      "properties": {
+        "today": {
+          "$ref": "#/$defs/date"
+        },
+        "current_month": {
+          "$ref": "#/$defs/month"
+        }
+      }
+    },
+    "household": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "currency_code",
+        "ai_context_text"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "currency_code": {
+          "$ref": "#/$defs/currencyCode"
+        },
+        "ai_context_text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Read-only hackathon context for AI, such as approximate household income, discretionary savings, and constraints. Do not put account numbers or credentials here."
+        }
+      }
+    },
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role",
+        "display_name",
+        "can_propose"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "parent_1",
+            "parent_2",
+            "teen_1"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "short_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12
+        },
+        "can_propose": {
+          "type": "boolean"
+        }
+      }
+    },
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "sort_order"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "sort_order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "is_hard_floor": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "target_amount_minor",
+        "target_date",
+        "saved_amount_minor",
+        "plan_months"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "target_amount_minor": {
+          "$ref": "#/$defs/minorAmount"
+        },
+        "target_date": {
+          "$ref": "#/$defs/date"
+        },
+        "saved_amount_minor": {
+          "$ref": "#/$defs/minorAmount"
+        },
+        "plan_months": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/month"
+          }
+        }
+      }
+    },
+    "spendSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "granularity",
+        "period_start",
+        "period_end",
+        "member_id",
+        "category_id",
+        "actual_amount_minor"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "historical_reference",
+            "weekly_import"
+          ],
+          "description": "MVP uses historical_reference only. weekly_import is reserved for a later ingestion workflow."
+        },
+        "granularity": {
+          "type": "string",
+          "enum": [
+            "month",
+            "week"
+          ]
+        },
+        "period_start": {
+          "$ref": "#/$defs/date"
+        },
+        "period_end": {
+          "$ref": "#/$defs/date"
+        },
+        "member_id": {
+          "$ref": "#/$defs/id"
+        },
+        "category_id": {
+          "$ref": "#/$defs/id"
+        },
+        "actual_amount_minor": {
+          "$ref": "#/$defs/minorAmount"
+        }
+      }
     },
     "budgetItem": {
-      "type": "object", "additionalProperties": false, "required": ["id", "member_id", "category_id", "month", "planned_amount_minor"],
-      "properties": { "id": { "$ref": "#/$defs/uuid" }, "member_id": { "$ref": "#/$defs/uuid" }, "category_id": { "$ref": "#/$defs/uuid" }, "month": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }, "planned_amount_minor": { "$ref": "#/$defs/minorAmount" } }
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "member_id",
+        "category_id",
+        "month",
+        "planned_amount_minor",
+        "floor_amount_minor"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "member_id": {
+          "$ref": "#/$defs/id"
+        },
+        "category_id": {
+          "$ref": "#/$defs/id"
+        },
+        "month": {
+          "$ref": "#/$defs/month"
+        },
+        "planned_amount_minor": {
+          "$ref": "#/$defs/minorAmount"
+        },
+        "floor_amount_minor": {
+          "$ref": "#/$defs/minorAmount"
+        },
+        "is_locked": {
+          "type": "boolean",
+          "default": false
+        }
+      }
     },
     "proposal": {
-      "type": "object", "additionalProperties": false, "required": ["id", "month", "proposer_id", "status", "changes"],
-      "properties": { "id": { "$ref": "#/$defs/uuid" }, "month": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }, "proposer_id": { "$ref": "#/$defs/uuid" }, "status": { "enum": ["draft", "pending", "agreed", "declined"] }, "changes": { "type": "array", "minItems": 2, "items": { "type": "object", "additionalProperties": false, "required": ["budget_item_id", "delta_amount_minor"], "properties": { "budget_item_id": { "$ref": "#/$defs/uuid" }, "delta_amount_minor": { "$ref": "#/$defs/minorAmount" } } } } }
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "month",
+        "proposer_member_id",
+        "required_responder_member_ids",
+        "status",
+        "changes",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "month": {
+          "$ref": "#/$defs/month"
+        },
+        "proposer_member_id": {
+          "$ref": "#/$defs/id"
+        },
+        "required_responder_member_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "pending",
+            "agreed",
+            "declined"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "ai_rationale": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "resolved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/proposalDecision"
+          }
+        },
+        "changes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/proposalChange"
+          }
+        }
+      }
+    },
+    "proposalDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "member_id",
+        "decision",
+        "decided_at"
+      ],
+      "properties": {
+        "member_id": {
+          "$ref": "#/$defs/id"
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "agreed",
+            "declined"
+          ]
+        },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "proposalChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "budget_item_id",
+        "delta_amount_minor",
+        "amount_before_minor",
+        "amount_after_minor"
+      ],
+      "properties": {
+        "budget_item_id": {
+          "$ref": "#/$defs/id"
+        },
+        "delta_amount_minor": {
+          "$ref": "#/$defs/signedMinorAmount"
+        },
+        "amount_before_minor": {
+          "$ref": "#/$defs/minorAmount"
+        },
+        "amount_after_minor": {
+          "$ref": "#/$defs/minorAmount"
+        }
+      }
     }
   }
 }
