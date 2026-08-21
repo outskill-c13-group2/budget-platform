@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://outskill-c13-group-2.local/contracts/budget-fixture/1.0.0",
+  "title": "Budget negotiator demo fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "household", "members", "categories", "goal", "budget_items"],
+  "properties": {
+    "contract_version": { "const": "1.0.0" },
+    "household": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "currency_code"],
+      "properties": {
+        "id": { "$ref": "#/$defs/uuid" }, "name": { "type": "string", "minLength": 1 },
+        "currency_code": { "type": "string", "pattern": "^[A-Z]{3}$" }, "ai_context_text": { "type": "string" }
+      }
+    },
+    "members": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/member" } },
+    "categories": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/category" } },
+    "goal": { "$ref": "#/$defs/goal" },
+    "budget_items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/budgetItem" } },
+    "proposals": { "type": "array", "items": { "$ref": "#/$defs/proposal" } }
+  },
+  "$defs": {
+    "uuid": { "type": "string", "format": "uuid" },
+    "minorAmount": { "type": "integer" },
+    "member": {
+      "type": "object", "additionalProperties": false, "required": ["id", "display_name", "role"],
+      "properties": { "id": { "$ref": "#/$defs/uuid" }, "display_name": { "type": "string" }, "role": { "enum": ["adult", "teen"] } }
+    },
+    "category": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "floor_amount_minor"],
+      "properties": { "id": { "$ref": "#/$defs/uuid" }, "name": { "type": "string" }, "floor_amount_minor": { "$ref": "#/$defs/minorAmount" } }
+    },
+    "goal": {
+      "type": "object", "additionalProperties": false, "required": ["id", "title", "target_amount_minor", "deadline_date"],
+      "properties": { "id": { "$ref": "#/$defs/uuid" }, "title": { "type": "string" }, "target_amount_minor": { "type": "integer", "minimum": 1 }, "deadline_date": { "type": "string", "format": "date" } }
+    },
+    "budgetItem": {
+      "type": "object", "additionalProperties": false, "required": ["id", "member_id", "category_id", "month", "planned_amount_minor"],
+      "properties": { "id": { "$ref": "#/$defs/uuid" }, "member_id": { "$ref": "#/$defs/uuid" }, "category_id": { "$ref": "#/$defs/uuid" }, "month": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }, "planned_amount_minor": { "$ref": "#/$defs/minorAmount" } }
+    },
+    "proposal": {
+      "type": "object", "additionalProperties": false, "required": ["id", "month", "proposer_id", "status", "changes"],
+      "properties": { "id": { "$ref": "#/$defs/uuid" }, "month": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }, "proposer_id": { "$ref": "#/$defs/uuid" }, "status": { "enum": ["draft", "pending", "agreed", "declined"] }, "changes": { "type": "array", "minItems": 2, "items": { "type": "object", "additionalProperties": false, "required": ["budget_item_id", "delta_amount_minor"], "properties": { "budget_item_id": { "$ref": "#/$defs/uuid" }, "delta_amount_minor": { "$ref": "#/$defs/minorAmount" } } } } }
+    }
+  }
+}

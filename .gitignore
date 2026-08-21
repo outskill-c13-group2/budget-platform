@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+.DS_Store
+supabase/.temp/
+n8n/runtime/
+n8n/credentials/
