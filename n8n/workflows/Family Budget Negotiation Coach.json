@@ -1,0 +1,197 @@
+{
+  "name": "Family Budget Negotiation Coach",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "family-budget-negotiation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "76db1258-2430-46e9-b5e5-e23a22c82105",
+      "name": "Webhook (from Lovable)",
+      "webhookId": "family-budget-negotiation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Deterministically resolve the negotiation into a compact, factual context.\n// The LLM never touches raw UUIDs, cents, or joins -- only writes prose.\nconst inJson = $input.first().json;\nconst body = inJson.body || inJson;            // webhook wraps POST body under .body\nconst fx = body.fixture || body;               // accept {fixture:{...}} or the fixture directly\n\nconst members = fx.members || [];\nconst categories = fx.categories || [];\nconst budgetItems = fx.budget_items || [];\nconst proposals = fx.proposals || [];\nconst currency = (fx.household && fx.household.currency_code) || 'USD';\n\nconst memById = {}; members.forEach(m => memById[m.id] = m);\nconst memByRole = {}; members.forEach(m => memByRole[m.role] = m);\nconst catById = {}; categories.forEach(c => catById[c.id] = c);\nconst biById = {}; budgetItems.forEach(b => biById[b.id] = b);\n\nconst money = (minor) => (typeof minor === 'number' ? minor / 100 : null);\n\n// Pick the target proposal: explicit id > last 'agreed' > last overall.\nlet proposal = null;\nconst wantedId = body.proposal_id || fx.proposal_id;\nif (wantedId) proposal = proposals.find(p => p.id === wantedId) || null;\nif (!proposal) { for (let i = proposals.length - 1; i >= 0; i--) { if (proposals[i].status === 'agreed') { proposal = proposals[i]; break; } } }\nif (!proposal && proposals.length) proposal = proposals[proposals.length - 1];\n\nconst rawChanges = (proposal && proposal.changes) || [];\nconst changes = rawChanges.map(ch => {\n  const bi = biById[ch.budget_item_id] || {};\n  const mem = memById[bi.member_id] || {};\n  const cat = catById[bi.category_id] || {};\n  const delta = money(ch.delta_amount_minor);\n  return {\n    role: mem.role || null,\n    name: mem.display_name || null,\n    member_id: bi.member_id || null,\n    category: cat.name || null,\n    month: bi.month || (proposal && proposal.month) || null,\n    delta: delta,\n    before: money(ch.amount_before_minor),\n    after: money(ch.amount_after_minor),\n    direction: (delta == null ? null : (delta < 0 ? 'reduced' : 'increased'))\n  };\n});\n\nconst proposerMem = (proposal && memById[proposal.proposer_member_id]) || {};\nconst requiredIds = (proposal && proposal.required_responder_member_ids) || [];\n\nfunction roleSummary(role) {\n  const mem = memByRole[role] || {};\n  const mine = changes.filter(c => c.member_id && c.member_id === mem.id);\n  return {\n    role: role,\n    name: mem.display_name || null,\n    member_id: mem.id || null,\n    is_proposer: !!(proposal && mem.id && proposal.proposer_member_id === mem.id),\n    is_required_responder: !!(mem.id && requiredIds.indexOf(mem.id) !== -1),\n    involved: mine.length > 0,\n    cuts: mine.filter(c => c.direction === 'reduced'),\n    additions: mine.filter(c => c.direction === 'increased')\n  };\n}\n\nconst goal = fx.goal ? {\n  name: fx.goal.name,\n  target: money(fx.goal.target_amount_minor),\n  saved: money(fx.goal.saved_amount_minor),\n  remaining: (money(fx.goal.target_amount_minor) != null && money(fx.goal.saved_amount_minor) != null)\n    ? money(fx.goal.target_amount_minor) - money(fx.goal.saved_amount_minor) : null,\n  target_date: fx.goal.target_date\n} : null;\n\nconst context = {\n  found_proposal: !!proposal,\n  currency: currency,\n  month: proposal ? proposal.month : null,\n  status: proposal ? proposal.status : null,\n  proposal_description: proposal ? (proposal.description || null) : null,\n  proposal_rationale: proposal ? (proposal.ai_rationale || null) : null,\n  proposer: { role: proposerMem.role || null, name: proposerMem.display_name || null, member_id: proposerMem.id || null },\n  goal: goal,\n  household_context: fx.household ? (fx.household.ai_context_text || null) : null,\n  changes: changes,\n  members: {\n    parent_1: roleSummary('parent_1'),\n    parent_2: roleSummary('parent_2'),\n    teen_1: roleSummary('teen_1')\n  }\n};\n\nreturn [{ json: context }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9f3cc17f-e502-4048-8564-28a7f3dc56d3",
+      "name": "Prepare Negotiation Context"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an upbeat, genuinely encouraging family finance coach inside a gamified budgeting app. A family of two parents and one teen has been rebalancing their monthly budget to save toward a shared goal. One member PROPOSED a change; the proposal moves money between categories (some amounts REDUCED as a sacrifice, some INCREASED, e.g. into savings or groceries) and the amounts net to zero.\n\nWrite THREE short, motivating messages -- one each for parent1, parent2, and teen1. For each person:\n- Open on a genuinely celebratory, motivating note.\n- If they made cuts, name the SPECIFIC category and dollar amount they gave up, and frame the sacrifice as a generous win for the family.\n- If they added money to a category (like savings or groceries), celebrate that contribution toward the goal.\n- If they PROPOSED the change, applaud the leadership in bringing the family together.\n- If they were NOT involved in this particular proposal (no cuts, no additions, not the proposer), still send a short, warm, encouraging note that celebrates the family's progress and invites them to the next round -- do NOT invent a sacrifice they did not make.\n- Connect it to the savings goal when helpful. Speak directly to the person (\"you\"). Keep each message to 2-4 warm sentences.\n\nMoney is already in whole currency units (e.g. 120 means $120). Use ONLY the names, categories, amounts, proposer, and goal present in the data below. Do NOT invent numbers, categories, or facts.\n\nCurrency: {{ $json.currency }}\nResolved negotiation context (JSON):\n{{ JSON.stringify($json) }}",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        464,
+        0
+      ],
+      "id": "31f15649-dcca-4da6-a526-6312ce0d4f8a",
+      "name": "Negotiation Coach (LLM Chain)"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3.1-8b-instruct:nitro",
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        416,
+        240
+      ],
+      "id": "0eac0ed2-aae2-4c70-8be2-4873af856db0",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "k7LQewOL4Xt5iajA",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"required\": [\n    \"parent1\",\n    \"parent2\",\n    \"teen1\"\n  ],\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"parent1\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"message\"\n      ],\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"message\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"parent2\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"message\"\n      ],\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"message\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"teen1\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"message\"\n      ],\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"message\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        240
+      ],
+      "id": "514b6afb-b9fb-412c-95a2-786505d0e280",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Guarantee the exact same output shape every call. IDs/roles/names come\n// deterministically from the resolved context; the LLM only supplied 'message'.\nconst out = ($input.first().json && ($input.first().json.output || $input.first().json)) || {};\nconst ctx = $('Prepare Negotiation Context').first().json || {};\nconst membs = ctx.members || {};\n\nfunction build(roleKey, outKey) {\n  const m = membs[roleKey] || {};\n  const src = out[outKey] || {};\n  return {\n    role: roleKey,\n    member_id: m.member_id || null,\n    name: m.name || null,\n    involved: !!m.involved,\n    is_proposer: !!m.is_proposer,\n    message: (typeof src.message === 'string' && src.message.trim()) ? src.message.trim() : ''\n  };\n}\n\nreturn [{\n  json: {\n    ok: true,\n    month: ctx.month || null,\n    status: ctx.status || null,\n    currency: ctx.currency || 'USD',\n    parent1: build('parent_1', 'parent1'),\n    parent2: build('parent_2', 'parent2'),\n    teen1: build('teen_1', 'teen1')\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ],
+      "id": "efdcd8c7-c868-418b-802f-93fcd627d48a",
+      "name": "Normalize Response"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1024,
+        0
+      ],
+      "id": "cbbbacfc-c452-41e7-82a4-5bccf439bcaa",
+      "name": "Respond to Lovable"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook (from Lovable)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Negotiation Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Negotiation Context": {
+      "main": [
+        [
+          {
+            "node": "Negotiation Coach (LLM Chain)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Negotiation Coach (LLM Chain)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Negotiation Coach (LLM Chain)",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Negotiation Coach (LLM Chain)": {
+      "main": [
+        [
+          {
+            "node": "Normalize Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Lovable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "bee041c7-5a15-49e7-b1c6-2a45aa5c8e4a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cd86fca2d0d9da7945df8d7c3fd7f3adbc5761e94e1d92baa29de526560722b5"
+  },
+  "nodeGroups": [],
+  "id": "RcAX40eV77Hs4gLc",
+  "tags": []
+}
